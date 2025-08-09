@@ -84,7 +84,11 @@ WSGI_APPLICATION = 'Internship_pro.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgresql://exit_database_user:sL5gCEJXAbSiBM2qgJv6z1MeT0PDWn6M@dpg-d2bg3d2dbo4c73aq763g-a/exit_database')
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',  # fallback for local
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
