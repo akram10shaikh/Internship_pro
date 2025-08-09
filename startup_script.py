@@ -2,7 +2,7 @@ import os
 import django
 
 # Set up Django environment
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'codepluto.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Internship_pro.settings')
 django.setup()
 
 from django.core.management import call_command
