@@ -1596,8 +1596,8 @@ class ConfirmPaymentView(APIView):
                     
                     return Response({
                         'status': 'succeeded',
-                        'message': 'Payment completed successfully'
-			'user': {
+                        'message': 'Payment completed successfully',
+			            'user': {
                             'full_name': request.user.full_name,
                             'username': request.user.username,
                             'email': request.user.email,
