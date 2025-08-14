@@ -1597,12 +1597,12 @@ class ConfirmPaymentView(APIView):
                     return Response({
                         'status': 'succeeded',
                         'message': 'Payment completed successfully',
-			            'user': {
+                        'user': {
                             'full_name': request.user.full_name,
                             'username': request.user.username,
                             'email': request.user.email,
                         }
-                    })
+                    }, status=200)
                 else:
                     payment_record.status = 'failed'
                     payment_record.save()

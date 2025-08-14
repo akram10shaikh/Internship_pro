@@ -91,6 +91,8 @@ DATABASES = {
     )
 }
 
+DATABASES['default'] = dj_database_url.parse("postgresql://exit_database_user:sL5gCEJXAbSiBM2qgJv6z1MeT0PDWn6M@dpg-d2bg3d2dbo4c73aq763g-a/exit_database")
+
 
 
 # Password validation
