@@ -1601,11 +1601,12 @@ class ConfirmPaymentView(APIView):
                     
                     return Response({
                         'status': 'succeeded',
-                        'message': 'Payment completed successfully',
+                        'message': f'Payment completed successfully hello',
                         'user': {
                             'full_name': request.user.full_name,
-                            'username': request.user.username,
                             'email': request.user.email,
+                            'paid': request.user.paid,
+                            'username': request.user.username,
                         }
                     }, status=200)
                 else:
