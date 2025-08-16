@@ -342,6 +342,7 @@ def check_email_status(request):
                 "status": "success", 
                 "user_exists": True,
                 "email_verified": user.email_verified,
+                "paid":user.paid,
                 "message": "Email already registered. Please login." if user.email_verified else "Email registered but not verified."
             })
         except CustomUser.DoesNotExist:
@@ -349,6 +350,7 @@ def check_email_status(request):
                 "status": "success", 
                 "user_exists": False,
                 "email_verified": False,
+                "paid": False,
                 "message": "Email not registered."
             })
             
