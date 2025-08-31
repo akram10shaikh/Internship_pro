@@ -76,7 +76,7 @@ TEMPLATES = [
         },
     },
 ]
-
+FORCE_SCRIPT_NAME = "/django" 
 WSGI_APPLICATION = 'Internship_pro.wsgi.application'
 
 
