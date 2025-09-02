@@ -35,7 +35,6 @@ class StripePaymentAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(EmailVerification)
-admin.site.register(CompanyEmail)
 admin.site.register(VimeoVideo)
 admin.site.register(COIFormData)
 admin.site.register(UserMembership)
