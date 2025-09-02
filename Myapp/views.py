@@ -269,8 +269,7 @@ def register(request):
                 )
                 subject = 'Welcome to Prspera! Your journey begins here'
                 message = f"Dear {full_name},\n\nWelcome onboard!\n\nWe're excited to host you on our Prspera platform. We'll reach out to you shortly regarding the next steps.  Meanwhile, you may watch / listen to our CEO, Harish Chauhan interviewing Jeff Cullen who exited twice with double digit multiples, employing our UPh principles - https://prspera.com/proof\n\nStay tuned for further instructions.\n\nregards,\nHarish Chauhan,\nCEO,Prspera"
-                cc_list = ['harish@prspera.com']
-                send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email], cc=cc_list,fail_silently=False)
+                send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email], fail_silently=False)
 
                 tokens = get_tokens_for_user(user)
 
@@ -2319,3 +2318,46 @@ class AllUsersOverviewAPIView(APIView):
         users = CustomUser.objects.all().select_related('usersubscription')
         serializer = UserOverviewSerializer(users, many=True)
         return Response(serializer.data)
+
+
+from .models import VideoData
+from .serializers import VideoDataSerializer
+from django.http import Http404
+
+class VideoListAPIView(APIView):
+    def get(self, request):
+        videos = VideoData.objects.all()
+        serializer = VideoDataSerializer(videos, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = VideoDataSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class VideoDetailAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return VideoData.objects.get(pk=pk)
+        except VideoData.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        video = self.get_object(pk)
+        serializer = VideoDataSerializer(video)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        video = self.get_object(pk)
+        serializer = VideoDataSerializer(video, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        video = self.get_object(pk)
+        video.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

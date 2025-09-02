@@ -2,6 +2,7 @@ from django.urls import path, include
 
 from Myapp import linkedin_auth
 from . import views
+from .views import VideoListAPIView, VideoDetailAPIView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -72,4 +73,7 @@ urlpatterns = [
     path('process-tokenized-payment/', views.ProcessTokenizedPaymentView.as_view(), name='process-tokenized-payment'),
 
     path('all-users-info/', views.AllUsersOverviewAPIView.as_view(), name='all-users-overview'),
+
+    path('videos/', VideoListAPIView.as_view(), name='video-list'),
+    path('videos/<int:pk>/', VideoDetailAPIView.as_view(), name='video-detail'),
 ]

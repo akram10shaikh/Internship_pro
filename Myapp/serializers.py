@@ -110,3 +110,10 @@ class UserOverviewSerializer(serializers.ModelSerializer):
     def get_payment_amount(self, obj):
         last_payment = StripePayment.objects.filter(user=obj, status__in=['completed', 'succeeded']).order_by('-created_at').first()
         return last_payment.amount if last_payment else None
+    
+
+from .models import VideoData
+class VideoDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoData
+        fields = '__all__'

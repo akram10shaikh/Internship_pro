@@ -316,3 +316,97 @@ class PollVote(models.Model):
 
     class Meta:
         unique_together = ['poll_option', 'user']
+
+
+class VideoData(models.Model):
+    video_url = models.URLField(validators=[URLValidator()])
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    thumbnail_url = models.URLField(validators=[URLValidator()], blank=True, null=True)
+    duration = models.IntegerField(help_text="Duration in seconds", blank=True, null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+    
+
+class CompanySurvey(models.Model):
+    COMPANY_SIZE_CHOICES = [
+        ('small', 'Small'),
+        ('medium', 'Medium'),
+        ('large', 'Large'),
+        ('global', 'Global'),
+    ]
+    company_size = models.CharField(max_length=10, choices=COMPANY_SIZE_CHOICES)
+
+    ROLE_CHOICES = [
+        ('executive_owner', 'Executive / Owner'),
+        ('advertising', 'Advertising'),
+        ('operations', 'Operations'),
+        ('customer_service', 'Customer Service'),
+        ('publicity', 'Publicity'),
+        ('finance', 'Finance'),
+        ('marketing', 'Marketing'),
+        ('sales', 'Sales'),
+        ('technology', 'Technology'),
+        ('other', 'Other'),
+    ]
+    your_role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    other_role = models.CharField(max_length=100, blank=True, help_text="If 'Other', specify here")
+
+    OFFERINGS_CHOICES = [
+        ('products', 'Products'),
+        ('services', 'Services'),
+    ]
+    offerings = models.CharField(max_length=10, choices=OFFERINGS_CHOICES)
+
+    EXISTS_CHOICES = [
+        ('exists', 'EXISTS'),
+        ('nonexistent', 'Non–Existent'),
+    ]
+    company_succession_plan = models.CharField(max_length=12, choices=EXISTS_CHOICES)
+    company_business_plan = models.CharField(max_length=12, choices=EXISTS_CHOICES)
+
+    TREND_CHOICES = [
+        ('upwards', 'UPWARDS'),
+        ('downwards', 'DOWNWARDS'),
+        ('unchanged', 'UNCHANGED'),
+    ]
+    revenues_trend = models.CharField(max_length=10, choices=TREND_CHOICES)
+    profits_trend = models.CharField(max_length=10, choices=TREND_CHOICES)
+
+    CASH_FLOW_POSITION_CHOICES = [
+        ('weak', 'Weak'),
+        ('sufficient', 'Sufficient'),
+        ('strong', 'Strong'),
+    ]
+    cash_flow_position = models.CharField(max_length=10, choices=CASH_FLOW_POSITION_CHOICES)
+
+    MARKET_AWARENESS_CHOICES = [
+        ('weak', 'Weak'),
+        ('sufficient', 'Sufficient'),
+        ('strong', 'Strong'),
+    ]
+    market_awareness = models.CharField(max_length=10, choices=MARKET_AWARENESS_CHOICES)
+
+    STAFF_TURNAROUND_CHOICES = [
+        ('high', 'HIGH'),
+        ('low', 'LOW'),
+        ('unchanging', 'UNCHANGING'),
+    ]
+    staff_turnaround = models.CharField(max_length=10, choices=STAFF_TURNAROUND_CHOICES)
+
+    PROCESS_CHOICES = [
+        ('formal', 'Formal'),
+        ('informal', 'Informal'),
+    ]
+    rnd_process = models.CharField("R&D Process", max_length=10, choices=PROCESS_CHOICES)
+    hr_process = models.CharField("HR Process", max_length=10, choices=PROCESS_CHOICES)
+    sales_process = models.CharField("Sales Process", max_length=10, choices=PROCESS_CHOICES)
+    publicity_advertising_plan = models.CharField(max_length=10, choices=PROCESS_CHOICES)
+    marketing_strategy = models.CharField(max_length=10, choices=PROCESS_CHOICES)
+
+    culture = models.CharField(max_length=300, help_text="In a few words, describe your company culture.")
+
+    def __str__(self):
+        return f"{self.company_size} - {self.your_role}"

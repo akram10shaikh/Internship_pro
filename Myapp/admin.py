@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import CustomUser, EmailOTP, CompanyEmail, StripePayment, Message, ChatRoom
+from .models import *
 
 admin.site.register(CustomUser)
 admin.site.register(EmailOTP)
@@ -32,3 +33,15 @@ class StripePaymentAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+admin.site.register(EmailVerification)
+admin.site.register(CompanyEmail)
+admin.site.register(VimeoVideo)
+admin.site.register(COIFormData)
+admin.site.register(UserMembership)
+admin.site.register(Meeting)
+admin.site.register(Poll)
+admin.site.register(PollOption)
+admin.site.register(PollVote)
+admin.site.register(VideoData)
+admin.site.register(CompanySurvey)
