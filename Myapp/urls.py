@@ -76,4 +76,7 @@ urlpatterns = [
 
     path('videos/', VideoListAPIView.as_view(), name='video-list'),
     path('videos/<int:pk>/', VideoDetailAPIView.as_view(), name='video-detail'),
+
+    # Company Survey URLs
+    path('company-surveys/', views.CompanySurveyListCreateView.as_view(), name='companysurvey-list-create')
 ]

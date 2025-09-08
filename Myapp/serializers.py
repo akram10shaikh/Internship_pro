@@ -117,3 +117,10 @@ class VideoDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = VideoData
         fields = '__all__'
+
+
+from .models import CompanySurvey
+
+class CompanySurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanySurvey

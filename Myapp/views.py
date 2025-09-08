@@ -2361,3 +2361,12 @@ class VideoDetailAPIView(APIView):
         video = self.get_object(pk)
         video.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+from rest_framework import generics
+from .models import CompanySurvey
+from .serializers import CompanySurveySerializer
+
+class CompanySurveyListCreateView(generics.ListCreateAPIView):
+    queryset = CompanySurvey.objects.all()
+    serializer_class = CompanySurveySerializer
