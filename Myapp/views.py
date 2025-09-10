@@ -267,8 +267,15 @@ def register(request):
                     password=password,
                     **user_extra_fields,  # Send all fields (including tag if set)
                 )
+             
+                if came_from_plan == False:
+                    message = f"""Dear {full_name},\n\nWelcome onboard!\n\nWe're excited to host you on our Prspera platform. We'll reach out to you shortly regarding the next steps. Meanwhile, you may watch / listen to our CEO, Harish Chauhan interviewing Jeff Cullen who exited twice with double digit multiples, employing our UPh principles - https://prspera.com/proof\n\nStay tuned for further instructions.\n\nregards,\nHarish Chauhan,\nCEO, Prspera"""
+
+                if came_from_plan == True:
+                    message = f"""Dear {full_name},\n\nWelcome onboard!\n\nThank you for enrolling in the Member Plan with Prspera. Currently, you are considered a Guest until your membership payment is completed and processed. To activate your Member benefits, please complete your payment at our Pricing page: https://prspera.com/pricing\n\nMeanwhile, you may watch / listen to our CEO, Harish Chauhan interviewing Jeff Cullen who exited twice with double digit multiples, employing our UPh principles - https://prspera.com/proof\n\nStay tuned for further instructions.\n\nregards,\nHarish Chauhan,\nCEO, Prspera"""
+             
                 subject = 'Welcome to Prspera! Your journey begins here'
-                message = f"Dear {full_name},\n\nWelcome onboard!\n\nWe're excited to host you on our Prspera platform. We'll reach out to you shortly regarding the next steps.  Meanwhile, you may watch / listen to our CEO, Harish Chauhan interviewing Jeff Cullen who exited twice with double digit multiples, employing our UPh principles - https://prspera.com/proof\n\nStay tuned for further instructions.\n\nregards,\nHarish Chauhan,\nCEO,Prspera"
+                # message = f"Dear {full_name},\n\nWelcome onboard!\n\nWe're excited to host you on our Prspera platform. We'll reach out to you shortly regarding the next steps.  Meanwhile, you may watch / listen to our CEO, Harish Chauhan interviewing Jeff Cullen who exited twice with double digit multiples, employing our UPh principles - https://prspera.com/proof\n\nStay tuned for further instructions.\n\nregards,\nHarish Chauhan,\nCEO,Prspera"
                 send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email], fail_silently=False)
 
                 tokens = get_tokens_for_user(user)

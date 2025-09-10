@@ -124,3 +124,4 @@ from .models import CompanySurvey
 class CompanySurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanySurvey
+        fields = '__all__'

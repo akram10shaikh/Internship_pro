@@ -331,6 +331,13 @@ class VideoData(models.Model):
     
 
 class CompanySurvey(models.Model):
+    business_name = models.CharField(max_length=255)
+    industry = models.CharField(max_length=255)
+    incorporationDate = models.DateField("Incorporation Date")
+    address1 = models.CharField("Address Line 1", max_length=255)
+    address2 = models.CharField("Address Line 2", max_length=255, blank=True)
+    country = models.CharField(max_length=100)
+    growthStage = models.CharField(max_length=100, help_text="e.g., Startup, Growth, Established")
     COMPANY_SIZE_CHOICES = [
         ('small', 'Small'),
         ('medium', 'Medium'),
@@ -338,21 +345,8 @@ class CompanySurvey(models.Model):
         ('global', 'Global'),
     ]
     company_size = models.CharField(max_length=10, choices=COMPANY_SIZE_CHOICES)
+    your_role = models.CharField(max_length=20,null=True)
 
-    ROLE_CHOICES = [
-        ('executive_owner', 'Executive / Owner'),
-        ('advertising', 'Advertising'),
-        ('operations', 'Operations'),
-        ('customer_service', 'Customer Service'),
-        ('publicity', 'Publicity'),
-        ('finance', 'Finance'),
-        ('marketing', 'Marketing'),
-        ('sales', 'Sales'),
-        ('technology', 'Technology'),
-        ('other', 'Other'),
-    ]
-    your_role = models.CharField(max_length=20, choices=ROLE_CHOICES)
-    other_role = models.CharField(max_length=100, blank=True, help_text="If 'Other', specify here")
 
     OFFERINGS_CHOICES = [
         ('products', 'Products'),
@@ -410,3 +404,17 @@ class CompanySurvey(models.Model):
 
     def __str__(self):
         return f"{self.company_size} - {self.your_role}"
+    
+
+
+
+class SurveyResponse(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  
+    section = models.CharField(max_length=50)         
+    question_number = models.PositiveIntegerField()    
+    question_text = models.TextField()               
+    response = models.CharField(max_length=20)        
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"User: {self.user.email}, Section: {self.section}, Q{self.question_number}: {self.response}"
