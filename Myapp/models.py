@@ -316,21 +316,10 @@ class PollVote(models.Model):
 
     class Meta:
         unique_together = ['poll_option', 'user']
-
-
-class VideoData(models.Model):
-    video_url = models.URLField(validators=[URLValidator()])
-    title = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    thumbnail_url = models.URLField(validators=[URLValidator()], blank=True, null=True)
-    duration = models.IntegerField(help_text="Duration in seconds", blank=True, null=True)
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.title
     
 
 class CompanySurvey(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     business_name = models.CharField(max_length=255)
     industry = models.CharField(max_length=255)
     incorporationDate = models.DateField("Incorporation Date")

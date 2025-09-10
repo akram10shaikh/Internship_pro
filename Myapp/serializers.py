@@ -112,12 +112,6 @@ class UserOverviewSerializer(serializers.ModelSerializer):
         return last_payment.amount if last_payment else None
     
 
-from .models import VideoData
-class VideoDataSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = VideoData
-        fields = '__all__'
-
 
 from .models import CompanySurvey
 
